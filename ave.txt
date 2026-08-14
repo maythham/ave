@@ -1,0 +1,606 @@
+Text
+
+Displays static text and various variables.
+
+It can be used to show track artist, title, time and other values.
+Properties
+Text
+Text to display.
+
+Text enclosed in "{}" will be recognized as a variable that will be replaced by it's according value.
+List of varible names:
+
+{TimeCurrent}
+{TimeRemaining}
+{TimeLength}
+{Artist}
+{ArtistOrTitle}
+{Title}
+{Album}
+{Fps}
+{FrameTime}
+{ArtistAndTitle}
+
+Color
+Color of the text.
+
+FontSize
+Font size of the text.
+
+TypeFace
+Specify font to use.
+General Properties
+Visible
+If not set, the element will be hidden, useful to temporary hide elements.
+
+BlendMode
+Blending mode for displaying this element.
+
+Alpha - alpha blending
+Screen - multiplies the inverse, result is always lighter
+Add - linear dodge (add)
+PreMulAlpha - premultiplied alpha blending
+AddAlpha - linear dodge (add) by alpha strength
+
+Position
+Specifies X,Y position of the element. The position is also affected by MeasurePos, AnchorX/Y and AlignmentPosition.
+
+X: 0.0, Y: 0.0 corresponds to upper left corner.
+X: 0.5, Y: 0.5 corresponds to the middle of the screen.
+X: 1.0, Y: 1.0 corresponds to lower right corner.
+
+Anchor X
+Alternative to Position property. Allows setting element to common positions before adding Position value.
+It's helpful where more complex positioning is required, e.g if creating progress bars.
+
+unset - use default value
+start - left
+center - center
+end - right
+
+Anchor Y
+Alternative to Position property. Allows setting element to common positions before adding Position value.
+It's helpful where more complex positioning is required, e.g if creating progress bars.
+
+unset - use default value
+start - top
+center - center
+end - bottom
+
+MeasurePos
+Variable component of the Position property.
+
+AlignmentPosition
+Specify which point on this element is positioned by Position or relevant position properties.
+
+For example, to position element in the center of the screen, you would set this property to X: 0.5, Y: 0.5 and Position to also X: 0.5, Y: 0.5, so this element center is aligned to screen center.
+
+Scale Is Uniform
+If set, the element will always keep its aspect ratio. Disable to let element fill the screen - used for backgrounds.
+
+Scale
+Specify dimensions of the element.
+
+Measure Scale
+Variable component of the Scale property.
+
+Additional general properties
+Rotation
+Rotation/Angle of the element.
+
+Measure Rot
+Variable component of the Rotation property.
+
+
+Segments / Bars
+
+Displays series of segments/lines/bars that react to audio.
+
+Represents values of Audio Provider output. The count of segments is also controlled by Audio Provider. 
+Properties
+General element properties
+See General Properties.
+
+Flip Input
+Flips values between start and end.
+
+Height Scale
+Adjusts height values. Final height is usually defined by HeightScale + BarHeightMultiplier (located at Segment1/2).
+
+Min Height Scale
+Minimal heigh value allowed.
+
+Shape Path
+Defines shape of the bars/line.
+
+HorizontalLine - straight line
+Circle - circle or arc
+SiddedPolygon - triangle, rectangle, pentagon,..
+Letter - Letter (A-Z) and numbers. The character shown is the first letter of artist or song name currently opened.
+
+Color Blend Offset
+Shifts center point of blending colors (ColorFrom, ColorTo).
+
+Segment 1
+Set the first segment renderer (e.g. Bars or Line). Bars/Line will be laid out along the specified ShapePath.
+
+See Segment Renderers.
+
+Segment 2
+Set the second segment renderer. Usually used to more effectively create different looking bars. Same can be achieved by adding another "Bars" element.
+
+See Segment Renderers.
+
+Softness
+Softens/smooths height values.
+
+Reaction Delay
+Delays reaction to audio by taking values of older frames.
+
+Reaction Accumulated Delay
+Delays reaction to audio by taking average values of older frames.
+
+Audio Provider Index
+If there are multiple "AudioProvider" elements, specify which to use as input.
+
+Composition
+
+Composition groups elements into a single image.
+
+Compositions (except final) are not directly visible but are used as input to effects. There is always one special type of composition called "Final Composition" that is visible and presents a final image to the screen.
+Properties
+Intro Blend Mode
+Blending mode for Intro/Outro screen.
+
+Intro Fade Duration
+Duration of screen fade at the beginning of a song.
+
+Outro Fade Duration
+Duration of screen fade at the end of a song.
+
+Intro Fade Color
+Intro/Outro screen fade color.
+Particles
+
+Displays field of particles.
+
+Particles will behave 2D or 3D, depending on "perspectiveDepth" property.
+Properties
+General element properties
+See General Properties.
+
+Color
+Base color of the particles, color is also affected by ColorFrom and ColorTo
+
+Count Limit
+Maximum limit of particles can exist at any given time.
+
+Mirror X
+Mirrors all particles horizontally.
+
+Mirror Y
+Mirrors all particles vertically.
+
+Perspective Depth
+If set above 0, particles will behave 3D, this value specifying 3D area depth. If set to 0 or below, particles behave 2D with no depth movement.
+
+Perspective Fov
+Specify field of view angle. Used for 3D particles.
+
+Spawn Area
+Specify area in which particles appear.
+
+HorizontalLine
+Vertical Orientation
+If set, acts as a vertical line.
+
+Use Random Vector Instead
+If set, particles will be spawned in random directions. This property overrides VectorAngle.
+
+Vector Angle
+Specify direction in degrees of particles when spawned.
+
+Vector Angle Z
+Specify Z direction of particles when spawned. This value is combined with VectorAngle to create a 3D vector. Used for 3D particles.
+
+Rectangle
+Vector Relative To Center
+If set, particles will be spawned outwards from the center. Useful for 2D particles. This property overrides UseRandomVectorInstead and VectorAngle.
+
+Use Random Vector Instead
+If set, particles will be spawned in random directions. This property overrides VectorAngle.
+
+Vector Angle
+Specify direction in degrees of particles when spawned.
+
+Vector Angle Z
+Specify Z direction of particles when spawned. This value is combined with VectorAngle to create a 3D vector. Used for 3D particles.
+
+Force Field
+Force field that affects particle movement.
+
+Custom Image
+Image used for particles.
+
+Particle Scale
+Base scale of the particles. Scale is also affected by StartSize, FadeInSize, EndSize, EndSizeRandom.
+
+Trail Length
+Stretches particles relative to its speed. Used to simulate motion blur.
+
+Color From
+Particle color is randomly blended between ColorFrom and ColorTo, when a particle is spawned.
+
+Color To
+Particle color is randomly blended between ColorFrom and ColorTo, when a particle is spawned.
+
+Fade In And Out Time
+Time between Start-Fade and Fade-End stages. Particle size changes is 3 stages: StartSize to FadeInSize to EndSize.
+
+Velocity Angle
+If set, a particle will align itself to what direction it is moving.
+
+Size Aspect Ratio
+Set to 1.0 for square particles, other values to make wide particles.
+
+Start Size
+Particles size at spawn time.
+
+Fade In Size
+Particle size at the Fade time. Happens after time specified in FadeInAndOutTime.
+
+End Size
+Particle size at end of lifetime.
+
+End Size Random
+Adds random component to size values. This value is added to StartSize, FadeInSize and EndSize.
+
+End Size Z Factor
+Affects particle size relative to its depth.
+This is absolute property and has no clear purpose anymore, use PerspectiveDepth and PerspectiveFov for 3D particles instead.
+
+Near Camera Fade Out Distance
+Fade out particles at a distance when near the camera. Used for 3D particles.
+
+Spawn Time
+Time between every new particle is spawned. A lower value will spawn more particles.
+
+Measure Overall Speed
+Variable component of particle speed. Total speed is defined by combining: MeasureOverallSpeed+Speed+SpeedRandom.
+
+Speed
+Speed of the particles. Total speed is defined by combining: MeasureOverallSpeed+Speed+SpeedRandom.
+
+Speed Random
+Random speed component of the particles. Total speed is defined by combining: MeasureOverallSpeed+Speed+SpeedRandom.
+
+Lifetime
+Total time particle exists after spawned.
+
+Gravity
+Defines gravity force that affects particle movement.
+
+Side Sine Wave Freq
+Speed/Frequency of wave movement.
+
+Side Sine Wave Freq Random
+Random Speed/Frequency component of wave movement.
+
+Side Sine Wave Mag
+Magnitude of wave movement.
+
+If the magnitude is set, particles will move/swing back and forth to sides.
+
+Side Sine Wave Mag Random
+Random magnitude component of wave movement.
+
+If the magnitude is set, particles will move/swing back and forth to sides.
+
+
+Image
+
+Displays album art, image from file or URL.
+
+If no custom path is set it, album art will be displayed, if no album art exists generated art will be displayed (i.e. artist and title name with color background). Animated GIFs are supported and GIFs transparency by using the color key.
+Properties
+General element properties
+See General Properties.
+
+Custom Image
+Image to be displayed.
+
+Measure Animation Speed
+Speed of animation, used for GIF images.
+
+Keep Aspect Ratio And Crop To Fit
+If set, don't stretch the image, crop to fill the desired dimension. This property overrides KeepAspectRatio.
+
+Keep Aspect Ratio
+If set, don't stretch the image, fit the desired dimensions.
+
+Blurred Border
+If image cannot be fitted into desired dimensions, fill empty areas with a blurred image.
+
+Shape
+Specify to display image in other shapes than a rectangle.
+
+Mask Image
+Image or Composition used to mask out areas of CustomImage.
+
+Mask Mode
+If MaskImage is used, specify what color components to interpret as masked out.
+
+Color
+Color of the image.
+
+Color To
+If MeasureColorBlend is used, the second color to blend Color to.
+
+Measure Color Blend
+Value to specify color blending between Color and ColorTo.
+
+Color Key Enabled
+If image has no transparency/alpha, enable to use a specific color key instead.
+
+Auto Detect Color Key
+If set, tries to detect color key by looking at image border colors.
+
+ColorKey
+Manually set the color used for transparency.
+
+Transparency Strength
+Boost the transparent parts of the image.
+
+Opacity Strength
+Boost the opaque parts of the image.
+
+BlurEnabled
+If set, blurs the entire image.
+
+BlurDivider
+Helps to increase the BlurRadius value.
+
+BlurRadius
+Amount of the blur.
+
+Generated Album Art Hint Shift Hue
+Shifts hue for default image. (used when CustomImage is not set)
+
+Generated Album Art Hint No Text
+Hide text on default image. (used when CustomImage is not set)
+
+Generated Album Art Hint Force Gen
+If set, force to show default image.
+
+Generated Album Art Color
+Color to use for default image. (used when CustomImage is not set)
+
+Audio Provider
+
+Processes and provides audio data for other elements.
+
+Segments/Bars elements values depend on output from this element. All "Beat" variables are also provided by this element. 
+Properties
+Sample Provider
+Specify the subtype of the audio provider.
+
+Spectrum
+Sample Out Count
+Spectrum values output count.
+
+Mirror Samples
+If set, the second half of values are mirrored.
+
+Repeat Samples
+Specify times values are repeated across SampleOutCount
+
+Star And End Gap
+Inserts zero values at the start and the end of the output.
+
+Smooth
+Controls audio reaction smoothness.
+
+Pre Smooth
+Controls audio reaction smoothness. This is experimental property, very similar to Smooth.
+
+Filter Radius
+Spread of the filter to make individual values stand out.
+
+Filter Strength
+Strength of the filter to make individual values stand out.
+
+AWeight
+Incresing this will silence values of lower frequencies. (i.e. silences bass).
+
+Output Multiplier
+Boosts output values.
+
+Lower Hz
+Frequency of the first spectrum value.
+
+Higher Hz
+Frequency of the last spectrum value.
+
+Hz Linear Factor
+Controls spread of lower frequency values. Decreasing this value will make bass values more dominant on a spectrum.
+
+Freq Shift
+Shifts output values forward/backward.
+
+Beat Smooth
+Controls "Beat" variables reaction smoothness.
+
+Beat Range can be imagined as a "box" on audio spectrum bars, defined by left, right, bottom and top sides, as more bars lie inside a box - beat value increases.
+
+Beat Range Bar First
+Index of first spectrum bar (left of the "box") for beat detection. Setting lower value makes Beat react to bass more, higher value to treble more.
+
+Beat Range Bar Last
+Index of last spectrum bar (right of the "box") for beat detection. Setting lower value makes Beat react to bass more, higher value to treble more.
+
+Beat Range Value Lower
+Lowest spectrum bar value (bottom of the "box") for beat detection.
+
+Beat Range Value Higher
+Highest spectrum bar value (top of the "box") for beat detection.
+
+FFT Size
+Input audio samples count for spectrum processing, defined as 2 to the power. (e.g. 2 ^ 10 = 1024)
+
+Waveform
+Sample Out Count Power
+Audio values output count, defined as 2 to the power. (e.g. 2 ^ 8 = 256)
+
+Input Size
+Input audio sample count, defined as 2 to the power. (e.g. 2 ^ 8 = 256)
+
+Blur Effect
+
+Displays blurred version of input composition/image.
+
+Usually "Show Unblurred Content" is set to overlay original unblurred input content on top of blurred one.
+Properties
+General element properties
+See General Properties.
+
+Blend Mode Content
+Blend mode for displaying original content (before blurring). Used when ShowUnblurredContent or ShowUnblurredContentUnder is set.
+
+Color
+Tint of the blur.
+
+Source Composition Index
+Index of Composition for use as input.
+
+Mask Image
+Image used to mask out areas.
+
+Show Unblurred Content
+Show original content (before blurring) over the blur.
+
+Show Unblurred Content Under
+Show original content (before blurring) under the blur.
+
+Blur Radius
+Amount of blur.
+
+Blur Multiplier
+Boosts BlurRadius property.
+
+1 Layer Scale
+Adjusts scale of blurred content.
+
+2 LayerScale
+If set above 0, shows second layer of blurred content. Adjusts scale of blurred content.
+
+3 Layer Scale
+If set above 0, shows third layer of blurred content. Adjusts scale of blurred content.
+
+Rgb Split Effect
+
+Offsets RGB channels of target composition/image.
+
+Helps to create chromatic aberration effect. It's possible to split in any other colors than Red, Green, Blue.
+
+Properties
+General element properties
+See General Properties.
+
+Blend Mode Content
+Blend mode for displaying original content (before blurring). Used when ShowUnblurredContent or ShowUnblurredContentUnder is set.
+
+Target Image
+Specify Image or Composition used as input.
+
+Color
+Tint of the effect.
+
+Show Unblurred Content
+Show original content (before blurring) over the blur.
+
+Show Unblurred Content Under
+Show original content (before blurring) under the blur.
+
+SplitMultiplier
+Boosts SplitAmount property.
+
+Split Amount
+Amount of the color offset split effect.
+
+Split Color 0
+First color component to offset.
+
+Split Color 1
+Second color component.
+
+Note that the first and third component is actually offsetted, the second stays in place. If you want to split only two colors like red and cyan, set this color component to black.
+
+Split Color 2
+Third color component to offset.
+
+
+Motion Blur Effect
+
+Blurs target composition/image content according to movement.
+
+Blurs input according to Position changes and Scale changes of this element. It's also possible to use different motion input by setting "MotionSource". 
+Properties
+General element properties
+See General Properties.
+
+Blend Mode Content
+Blend mode for displaying original content (before blurring). Used when ShowUnblurredContent or ShowUnblurredContentUnder is set.
+
+Color
+Tint of the blur.
+
+Target Image
+Specify Image or Composition used as input.
+
+Show Unblurred Content
+Show original content (before blurring) over the blur.
+
+Show Unblurred Content Under
+Show original content (before blurring) under the blur.
+
+Blur Amount Multiplier
+Amount of the blur.
+
+Motion Source
+Specify what to interpret as motion.
+
+EffectTransform - Use this element Position and Scale.
+Manual - Use variables.
+
+Manual
+Pos Blur Amount
+Controls position motion.
+
+Scale Blur Amount
+Controls scale/zoom motion.
+
+Relative Motion Mode
+Useful to disable when MotionSource is set to Manual, as variables commonly output absolutes values.
+
+
+
+Mirror Effect
+
+Mirrors region of input composition/image. 
+
+Mirrors half horizontaly, half verticaly or quarter of image.
+Properties
+General element properties
+See General Properties.
+
+Target Image
+Specify Image or Composition used as input.
+
+Mirror Mode
+Specify which sides to mirror. (e.g. horizontal or vertical)
+
+FlipMirror
+Flips sides, left or right side to mirror.
+
+Color
+Tint of the effect.
