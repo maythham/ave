@@ -1,0 +1,15 @@
+{
+  "name": "AVE Visualizer Library",
+  "version": "1.0",
+  "source_repository": "https://github.com/maythham/ave",
+  "branch": "main",
+  "assets": [
+    {"id":"ave-docs","path":"ave.txt","type":"documentation","description":"Visualizer elements and properties reference"},
+    {"id":"sample-viz","path":"sample.viz","type":"visualizer_preset","description":"Sample .viz visualizer"},
+    {"id":"scene-main","path":"scene.json","type":"scene","description":"Main visualizer scene"},
+    {"id":"scene-1","path":"scene1.json","type":"scene","description":"Visualizer scene 1"},
+    {"id":"scene-2","path":"scene2.json","type":"scene","description":"Visualizer scene 2"},
+    {"id":"scene-3","path":"scene3.json","type":"scene","description":"Visualizer scene 3"}
+  ],
+  "policy": "Treat the referenced root assets as authoritative source files; do not replace them with summaries when implementing or analyzing AVE Visualizer behavior."
+}
