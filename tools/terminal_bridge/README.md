@@ -1,39 +1,58 @@
 # AVE Windows / Android Bridge
 
-Local-only bridge design for the AVE development workstation.
+Local bridge for inspecting the Windows development environment, Android Studio Emulator/AVD, ADB and Frida.
 
-## Purpose
+## What is implemented
 
-This bridge is intended to let a local automation client inspect a Windows development machine and Android Studio emulator through existing command-line tools:
+`bridge.py` is a dependency-free Python HTTP service bound **only to `127.0.0.1`** and protected by `X-AVE-Token`.
 
-- Windows PowerShell / CMD
-- Android SDK `adb`
-- Android Studio emulator (`emulator` / `avdmanager`)
-- Frida CLI when installed (`frida`, `frida-ps`, `frida-trace`)
-- Git and project files
+Read endpoints:
 
-## Security model
+- `GET /health`
+- `GET /system`
+- `GET /adb/devices`
+- `GET /adb/packages`
+- `GET /adb/prop?name=ro.product.cpu.abilist`
+- `GET /emulator/avds`
+- `GET /frida/processes`
+- `GET /frida/devices`
 
-The bridge MUST bind to `127.0.0.1` only. It must not expose a raw unauthenticated shell to the LAN or Internet. Commands should be implemented as explicit operations/allowlists rather than accepting arbitrary shell text from remote clients.
+Controlled actions:
 
-Recommended operations:
+- `POST /emulator/start` with `{ "avd": "NAME" }`
+- `POST /emulator/stop` with `{ "serial": "emulator-5554" }`
 
-- `system_info`
-- `project_tree`
-- `adb_devices`
-- `adb_shell_readonly`
-- `emulator_list`
-- `frida_devices`
-- `frida_processes`
-- `git_status`
-- `run_tests`
+There is deliberately **no arbitrary shell endpoint**. Commands use argument arrays (`shell=False`) and inputs are validated.
 
-Destructive operations should require an explicit local confirmation step.
+## Windows start
 
-## Important limitation
+From PowerShell:
 
-Running this bridge on Windows does NOT automatically give a ChatGPT conversation direct access to localhost. A ChatGPT connector/agent integration is still required to invoke the bridge from a conversation. The bridge itself is therefore kept local and safe by default.
+```powershell
+$env:AVE_BRIDGE_TOKEN = "choose-a-long-random-token"
+.\start_bridge.ps1
+```
 
-## Android / Frida
+Or let the launcher ask for the token:
 
-For emulator inspection, first ensure `adb devices` sees the emulator. For Frida, ensure the matching `frida-server` is running inside the emulator/device and that the host-side Frida tools can enumerate it.
+```powershell
+.\start_bridge.ps1
+```
+
+The default address is `http://127.0.0.1:8765`.
+
+## Android Emulator
+
+Android's official command-line workflow supports `emulator -list-avds` and `emulator -avd NAME`; ADB can then inspect and control the running emulator. The emulator appears to ADB as a device. See the Android documentation linked from the project notes.
+
+## Frida
+
+The host needs the Frida CLI and the emulator/device needs a compatible Frida setup. The official Frida Android workflow uses ADB to deploy/start `frida-server` on suitable rooted environments and then verifies connectivity with `frida-ps -U`.
+
+## Important limitation: ChatGPT connectivity
+
+Running this service does **not** automatically give a ChatGPT conversation access to localhost. A connector/agent capable of reaching the local service is still required. Do not expose this port to the Internet just to make it reachable; if remote access is eventually required, use an authenticated, narrowly scoped connector or private network path.
+
+## Safety
+
+Do not put the token in Git. Do not commit secrets. Keep the listener on loopback. Destructive Android/file operations are intentionally absent from this first version.
